@@ -1,27 +1,27 @@
 {
-  "team": "example-partner",
-  "gameName": "example-game",
-  "displayTitle": "Example Game",
-  "description": "This is an example game. Enter a description here - three sentences max.",
+  "team": "broky",
+  "gameName": "mines",
+  "displayTitle": "Mines",
+  "description": "The player must navigate a minefield of hidden bombs, revealing gem tiles one by one and collecting multiplying rewards with every safe click. The key is knowing when to cash out. Push the luck too far and one wrong tile ends it all.",
   "authors": [
     {
-      "name": "Example Partner",
-      "telegram": "example_telegram_username"
+      "name": "broky",
+      "telegram": "HCAP1"
     }
   ],
   "revenueShare": [
     {
-      "name": "Your Name",
-      "telegram": "your_telegram_username",
-      "address": "0x0000000000000000000000000000000000000000",
+      "name": "broky",
+      "telegram": "HCAP1",
+      "address": "0x48eA705f0d0333294199eb93fedC830B2F31b45D",
       "share": 100
     }
   ],
   "status": "pending",
-  "category": "arcade",
+  "category": "strategy",
   "tags": [
-    "arcade",
-    "example",
+    "strategy",
+    "mines",
     "game"
   ],
   "thumbnail": "/my-game/card.png",
@@ -31,5 +31,5 @@
   "setupComponent": "MyGameSetupCard.tsx",
   "configFile": "myGameConfig.ts",
   "version": "1.0.0",
-  "submittedAt": "2025-01-15"
+  "submittedAt": "2026-05-01"
 }

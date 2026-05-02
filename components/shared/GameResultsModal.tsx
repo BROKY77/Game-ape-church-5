@@ -22,6 +22,7 @@ type GameResultsModalProps = {
     showRewatchOption: boolean;
     showPlayAgainOption: boolean;
     showPNL: boolean;
+    startMinimized?: boolean;
     resetButtonText?: string;
     playAgainButtonText?: string;
     rewatchButtonText?: string;
@@ -42,6 +43,7 @@ const GameResultsModal: React.FC<GameResultsModalProps> = ({
     showRewatchOption,
     showPlayAgainOption,
     showPNL,
+    startMinimized = false,
     resetButtonText = "Change Bet",
     playAgainButtonText = "Play Again",
     rewatchButtonText = "Rewatch",
@@ -85,10 +87,9 @@ const GameResultsModal: React.FC<GameResultsModalProps> = ({
     useEffect(() => {
         if (isOpen && !hasAnimatedIn) {
             setHasAnimatedIn(true);
-            // Don't force setMinimizeResultsModal(false) - respect the user's preference
-            // If they minimized it before, it should stay minimized for subsequent games
+            setMinimizeResultsModal(startMinimized);
         }
-    }, [isOpen, hasAnimatedIn]);
+    }, [isOpen, hasAnimatedIn, startMinimized]);
 
     // Reset animation state when modal closes
     useEffect(() => {
@@ -117,10 +118,10 @@ const GameResultsModal: React.FC<GameResultsModalProps> = ({
             <AnimatePresence>
                 {minimizeResultsModal && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8, x: -50 }}
+                        initial={{ opacity: 0, scale: 0.9, x: -18 }}
                         animate={{ opacity: 1, scale: 1, x: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, x: -50 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                        exit={{ opacity: 0, scale: 0.9, x: -18 }}
+                        transition={{ duration: 0.12, ease: "easeOut" }}
                         className="absolute top-2 left-2 lg:top-4 lg:left-4 z-20"
                     >
                         <motion.div
