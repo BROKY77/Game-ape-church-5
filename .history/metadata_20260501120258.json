@@ -1,0 +1,35 @@
+{
+  "team": "broky",
+  "gameName": "mines",
+  "displayTitle": "Mines",
+  "description": "This is an example game. Enter a description here - three sentences max.",
+  "authors": [
+    {
+      "name": "broky",
+      "telegram": "HCAP1"
+    }
+  ],
+  "revenueShare": [
+    {
+      "name": "broky",
+      "telegram": "HCAP1",
+      "address": "0x0000000000000000000000000000000000000000",
+      "share": 100
+    }
+  ],
+  "status": "pending",
+  "category": "arcade",
+  "tags": [
+    "arcade",
+    "example",
+    "game"
+  ],
+  "thumbnail": "/my-game/card.png",
+  "banner": "/my-game/banner.png",
+  "mainComponent": "MyGame.tsx",
+  "windowComponent": "MyGameWindow.tsx",
+  "setupComponent": "MyGameSetupCard.tsx",
+  "configFile": "myGameConfig.ts",
+  "version": "1.0.0",
+  "submittedAt": "2025-01-15"
+}

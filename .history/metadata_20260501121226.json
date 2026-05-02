@@ -1,0 +1,35 @@
+{
+  "team": "broky",
+  "gameName": "mines",
+  "displayTitle": "Mines",
+  "description": "Navigate a minefield of hidden bombs as you reveal gem tiles one by one, collecting multiplying rewards with every safe click. Cash out before you hit a mine or push your luck for an even bigger payout.",
+  "authors": [
+    {
+      "name": "broky",
+      "telegram": "HCAP1"
+    }
+  ],
+  "revenueShare": [
+    {
+      "name": "broky",
+      "telegram": "HCAP1",
+      "address": "0x48eA705f0d0333294199eb93fedC830B2F31b45D",
+      "share": 100
+    }
+  ],
+  "status": "pending",
+  "category": "strategy",
+  "tags": [
+    "strategy",
+    "mines",
+    "game"
+  ],
+  "thumbnail": "/my-game/card.png",
+  "banner": "/my-game/banner.png",
+  "mainComponent": "MyGame.tsx",
+  "windowComponent": "MyGameWindow.tsx",
+  "setupComponent": "MyGameSetupCard.tsx",
+  "configFile": "myGameConfig.ts",
+  "version": "1.0.0",
+  "submittedAt": "2026-05-01"
+}
