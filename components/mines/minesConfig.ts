@@ -1,15 +1,15 @@
 import { Game } from "@/lib/games";
 
-export const myGame: Game = {
+export const minesGame: Game = {
     title: "Mines",
     description: "Reveal tiles to collect gems. Avoid the mines. Cash out before you hit one.",
     gameAddress: "0x1234567890123456789012345678901234567890",
-    gameBackground: "/my-game/background.png",
-    card: "/my-game/card.png",
-    banner: "/my-game/banner.png",
-    advanceToNextStateAsset: "/my-game/advance-button.png",
+    gameBackground: "/mines/background.png",
+    card: "/mines/card.png",
+    banner: "/mines/banner.png",
+    advanceToNextStateAsset: "/mines/advance-button.png",
     themeColorBackground: "#22c55e",
-    song: "/my-game/audio/song.mp3",
+    song: "/mines/audio/song.mp3",
     payouts: {
         0: { 0: { 0: 10000 } },
     },

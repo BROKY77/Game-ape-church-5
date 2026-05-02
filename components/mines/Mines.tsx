@@ -4,11 +4,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import GameWindow from "@/components/shared/GameWindow";
-import MyGameWindow from "./MyGameWindow";
-import MyGameSetupCard from "./MyGameSetupCard";
+import MinesWindow from "./MinesWindow";
+import MinesSetupCard from "./MinesSetupCard";
 import { bytesToHex } from "viem";
 import { randomBytes, Game } from "@/lib/games";
-import "./my-game.style.css";
+import "./mines.style.css";
 import {
     HOUSE_EDGE,
     BOARD_TILE_COUNT,
@@ -18,9 +18,9 @@ import {
     createMinePositions,
     getMinesMultiplier,
     getSafeTileCount,
-} from "@/components/my-game/myGameConfig";
+} from "@/components/mines/minesConfig";
 
-interface MyGameProps {
+interface MinesProps {
     game: Game;
 }
 
@@ -76,7 +76,7 @@ const toSafePositiveInt = (value: number, fallback = 1, maxValue = Number.POSITI
     return Math.min(maxValue, Math.max(1, Math.floor(value)));
 };
 
-const MyGame: React.FC<MyGameProps> = ({ game }) => {
+const Mines: React.FC<MinesProps> = ({ game }) => {
     const searchParams = useSearchParams();
     const replayId = searchParams.get("id");
 
@@ -148,7 +148,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     const bgmRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
-        const audio = new Audio("/my-game/sfx/win_v2.mp3");
+        const audio = new Audio("/mines/sfx/win_v2.mp3");
         audio.preload = "auto";
         cashoutSfxRef.current = audio;
         return () => {
@@ -159,7 +159,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
 
     useEffect(() => {
         const pool = Array.from({ length: DIAMOND_SFX_POOL_SIZE }, () => {
-            const audio = new Audio("/my-game/sfx/diamond.mp3");
+            const audio = new Audio("/mines/sfx/diamond.mp3");
             audio.preload = "auto";
             return audio;
         });
@@ -173,7 +173,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     }, []);
 
     useEffect(() => {
-        const audio = new Audio("/my-game/sfx/lose_v2.mp3");
+        const audio = new Audio("/mines/sfx/lose_v2.mp3");
         audio.preload = "auto";
         loseSfxRef.current = audio;
         return () => {
@@ -183,7 +183,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     }, []);
 
     useEffect(() => {
-        const audio = new Audio("/my-game/sfx/lose_bomb.mp3");
+        const audio = new Audio("/mines/sfx/lose_bomb.mp3");
         audio.preload = "auto";
         loseBombSfxRef.current = audio;
         return () => {
@@ -193,7 +193,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     }, []);
 
     useEffect(() => {
-        const audio = new Audio("/my-game/sfx/not_enough.mp3");
+        const audio = new Audio("/mines/sfx/not_enough.mp3");
         audio.preload = "auto";
         notEnoughSfxRef.current = audio;
         return () => {
@@ -203,7 +203,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     }, []);
 
     useEffect(() => {
-        const audio = new Audio("/my-game/sfx/select_auto_tiles.mp3");
+        const audio = new Audio("/mines/sfx/select_auto_tiles.mp3");
         audio.preload = "auto";
         audio.volume = 0.8;
         autoTileSelectSfxRef.current = audio;
@@ -214,7 +214,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     }, []);
 
     useEffect(() => {
-        const audio = new Audio("/my-game/audio/casino_background.mp3");
+        const audio = new Audio("/mines/audio/casino_background.mp3");
         audio.preload = "auto";
         audio.loop = true;
         audio.volume = BACKGROUND_MUSIC_VOLUME;
@@ -1151,7 +1151,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
                 onMusicMutedChange={setIsMusicMuted}
                 onSfxMutedChange={setIsSfxMuted}
             >
-                <MyGameWindow
+                <MinesWindow
                     minePositions={roundState.minePositions}
                     revealedTiles={roundState.revealedTiles}
                     explodedMine={roundState.explodedMine}
@@ -1170,7 +1170,7 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
                 />
             </GameWindow>
 
-            <MyGameSetupCard
+            <MinesSetupCard
                 currentView={currentView}
                 betAmount={betAmount}
                 setBetAmount={hasActivePackage ? () => {} : setBetAmount}
@@ -1212,4 +1212,4 @@ const MyGame: React.FC<MyGameProps> = ({ game }) => {
     );
 };
 
-export default MyGame;
+export default Mines;

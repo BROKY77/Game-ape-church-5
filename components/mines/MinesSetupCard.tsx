@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import BetAmountInput from "@/components/shared/BetAmountInput";
 const MAX_BET_ROUNDS = 99999;
 
-interface MyGameSetupCardProps {
+interface MinesSetupCardProps {
     currentView: 0 | 1 | 2;
     betAmount: number;
     setBetAmount: (amount: number) => void;
@@ -43,7 +43,7 @@ interface MyGameSetupCardProps {
     autoNeedsRounds: boolean;
 }
 
-const MyGameSetupCard: React.FC<MyGameSetupCardProps> = ({
+const MinesSetupCard: React.FC<MinesSetupCardProps> = ({
     currentView,
     betAmount,
     setBetAmount,
@@ -477,4 +477,4 @@ const MyGameSetupCard: React.FC<MyGameSetupCardProps> = ({
     );
 };
 
-export default MyGameSetupCard;
+export default MinesSetupCard;

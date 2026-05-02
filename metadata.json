@@ -24,12 +24,12 @@
     "mines",
     "game"
   ],
-  "thumbnail": "/my-game/card.png",
-  "banner": "/my-game/banner.png",
-  "mainComponent": "MyGame.tsx",
-  "windowComponent": "MyGameWindow.tsx",
-  "setupComponent": "MyGameSetupCard.tsx",
-  "configFile": "myGameConfig.ts",
+  "thumbnail": "/mines/card.png",
+  "banner": "/mines/banner.png",
+  "mainComponent": "Mines.tsx",
+  "windowComponent": "MinesWindow.tsx",
+  "setupComponent": "MinesSetupCard.tsx",
+  "configFile": "minesConfig.ts",
   "version": "1.0.0",
   "submittedAt": "2026-05-01"
 }

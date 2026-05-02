@@ -1,9 +1,9 @@
 ﻿"use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { BOARD_TILE_COUNT, BOARD_COLUMNS } from "@/components/my-game/myGameConfig";
+import { BOARD_TILE_COUNT, BOARD_COLUMNS } from "@/components/mines/minesConfig";
 
-interface MyGameWindowProps {
+interface MinesWindowProps {
     minePositions: number[];
     revealedTiles: number[];
     explodedMine: number | null;
@@ -23,8 +23,8 @@ interface MyGameWindowProps {
 
 type TileState = "unrevealed" | "gem" | "exploded" | "mine-revealed";
 
-const EXPLOSION_SPRITE_SRC = "/my-game/explosion-sprite.png";
-const FIRE_FRAME_SRC = "/my-game/fire_frame.png";
+const EXPLOSION_SPRITE_SRC = "/mines/explosion-sprite.png";
+const FIRE_FRAME_SRC = "/mines/fire_frame.png";
 const EXPLOSION_FRAME_COUNT = 64;
 const EXPLOSION_COLUMNS = 8;
 const EXPLOSION_FPS = 48;
@@ -120,7 +120,7 @@ const ExplosionSprite: React.FC<ExplosionSpriteProps> = ({
     if (imageFailed) {
         return (
             <img
-                src="/my-game/bomb.svg"
+                src="/mines/bomb.svg"
                 alt="Bomb"
                 className="mines-tile-icon mines-tile-exploded-icon"
                 draggable={false}
@@ -131,7 +131,7 @@ const ExplosionSprite: React.FC<ExplosionSpriteProps> = ({
     return (
         <span className="mines-explosion-sequence" data-phase={phase}>
             <img
-                src="/my-game/bomb.svg"
+                src="/mines/bomb.svg"
                 alt="Bomb"
                 className="mines-tile-icon mines-explosion-sequence-bomb"
                 draggable={false}
@@ -168,7 +168,7 @@ const getTileState = (
     return "unrevealed";
 };
 
-const MyGameWindow: React.FC<MyGameWindowProps> = ({
+const MinesWindow: React.FC<MinesWindowProps> = ({
     minePositions,
     revealedTiles,
     explodedMine,
@@ -218,7 +218,7 @@ const MyGameWindow: React.FC<MyGameWindowProps> = ({
     };
 
     React.useEffect(() => {
-        const noteId = "hilo-end-card-games-note-inline";
+        const noteId = "mines-end-card-games-note-inline";
 
         if (!showEndCardGamesNote || endCardGamesCount <= 0) {
             const existing = document.getElementById(noteId);
@@ -255,7 +255,7 @@ const MyGameWindow: React.FC<MyGameWindowProps> = ({
             if (!note) {
                 note = document.createElement("p");
                 note.id = noteId;
-                note.className = "hilo-end-card-games-note-inline";
+                note.className = "mines-end-card-games-note-inline";
                 payout.insertAdjacentElement("afterend", note);
             }
 
@@ -330,7 +330,7 @@ const MyGameWindow: React.FC<MyGameWindowProps> = ({
                         >
                             {state === "gem" && (
                                 <img
-                                    src="/my-game/diamond.svg"
+                                    src="/mines/diamond.svg"
                                     alt="Diamond"
                                     className="mines-tile-icon mines-tile-gem"
                                     draggable={false}
@@ -349,7 +349,7 @@ const MyGameWindow: React.FC<MyGameWindowProps> = ({
                             )}
                             {state === "mine-revealed" && (
                                 <img
-                                    src="/my-game/bomb.svg"
+                                    src="/mines/bomb.svg"
                                     alt="Bomb"
                                     className="mines-tile-icon mines-tile-mine-icon"
                                     draggable={false}
@@ -363,4 +363,4 @@ const MyGameWindow: React.FC<MyGameWindowProps> = ({
     );
 };
 
-export default MyGameWindow;
+export default MinesWindow;

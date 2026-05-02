@@ -1,24 +1,24 @@
-import { myGame } from "@/components/my-game/myGameConfig";
-import MyGameComponent from "@/components/my-game/MyGame";
+import { minesGame } from "@/components/mines/minesConfig";
+import MinesComponent from "@/components/mines/Mines";
 
 export async function generateMetadata() {
   return {
-    title: myGame.title,
-    description: myGame.description,
+    title: minesGame.title,
+    description: minesGame.description,
   };
 }
 
-const MyGamePage: React.FC = () => {
+const MinesPage: React.FC = () => {
   return (
     <div className="w-full max-w-6xl mx-auto">
       <div className="flex flex-row mb-2 sm:mb-4">
         <h1 className="text-3xl font-semibold mr-2">
-          {myGame.title}
+          {minesGame.title}
         </h1>
       </div>
-      <MyGameComponent game={myGame} />
+      <MinesComponent game={minesGame} />
     </div>
   );
 };
 
-export default MyGamePage;
+export default MinesPage;

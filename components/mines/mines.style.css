@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Nohemi";
-    src: url("/my-game/nohemi/Nohemi/Web-TT/Nohemi-SemiBold.woff2") format("woff2");
+    src: url("/mines/nohemi/Nohemi/Web-TT/Nohemi-SemiBold.woff2") format("woff2");
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -208,7 +208,7 @@
     position: absolute;
     inset: -28px;
     border-radius: 6px;
-    background-image: url("/my-game/fire_frame.png");
+    background-image: url("/mines/fire_frame.png");
     background-repeat: no-repeat;
     background-size: 500% 500%;
     background-position: 0% 0%;
@@ -378,7 +378,7 @@
 
 @font-face {
     font-family: "Afacad";
-    src: url("/my-game/afacad/Afacad-Regular.ttf") format("truetype");
+    src: url("/mines/afacad/Afacad-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -752,7 +752,7 @@
     width: 56px;
     height: 56px;
     transform: translate(-50%, -50%);
-    background: url("/my-game/Logomark_White.png") center / contain no-repeat;
+    background: url("/mines/Logomark_White.png") center / contain no-repeat;
     opacity: 0.92;
 }
 
