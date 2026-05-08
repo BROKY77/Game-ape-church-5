@@ -272,92 +272,94 @@ const MinesWindow: React.FC<MinesWindowProps> = ({
 
     return (
         <div className="mines-grid-root">
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: `repeat(${BOARD_COLUMNS}, 1fr)`,
-                    gridTemplateRows: `repeat(${BOARD_COLUMNS}, minmax(0, 1fr))`,
-                    gap: "clamp(8px, 1.2vw, 12px)",
-                    width: "100%",
-                    height: "100%",
-                }}
-            >
-                {Array.from({ length: BOARD_TILE_COUNT }, (_, i) => {
-                    const state = getTileState(i, minePositions, revealedTiles, explodedMine, revealAllTiles);
-                    const isRevealClickable = isRoundActive && canReveal && state === "unrevealed" && !isAutoBetting;
-                    const isSelectClickable = isAutoSelectionMode && state === "unrevealed";
-                    const isManualHoverPreview = !isRoundActive && !isAutoSelectionMode && !isAutoBetting && state === "unrevealed";
-                    const isPendingReveal = pendingRevealTiles.includes(i) && state === "unrevealed";
-                    const isInteractive = (isRevealClickable && !isPendingReveal) || isSelectClickable;
-                    const isAutoSelected = showAutoSelectedTiles && autoSelectedTiles.includes(i);
-                    const isManualChosen = !isAutoBetting && !showAutoSelectedTiles && (revealedTiles.includes(i) || i === explodedMine);
-                    return (
-                        <button
-                            key={i}
-                            onPointerDown={(event) => {
-                                if (!isInteractive) return;
-                                event.preventDefault();
-                                if (isSelectClickable) {
-                                    isDraggingRef.current = true;
-                                    dragActionRef.current = autoSelectedTiles.includes(i) ? "deselect" : "select";
-                                    draggedTilesRef.current = new Set([i]);
-                                }
-                                handleTileAction(i, isRevealClickable, isSelectClickable);
-                            }}
-                            onPointerEnter={() => {
-                                if (!isDraggingRef.current || !isAutoSelectionMode || state !== "unrevealed") return;
-                                if (draggedTilesRef.current.has(i)) return;
-                                draggedTilesRef.current.add(i);
-                                const wantSelect = dragActionRef.current === "select";
-                                const alreadySelected = autoSelectedTiles.includes(i);
-                                if (wantSelect && !alreadySelected) onToggleAutoTile(i);
-                                if (!wantSelect && alreadySelected) onToggleAutoTile(i);
-                            }}
-                            onKeyDown={(event) => {
-                                if (!isInteractive) return;
-                                if (event.key !== "Enter" && event.key !== " ") return;
-                                event.preventDefault();
-                                handleTileAction(i, isRevealClickable, isSelectClickable);
-                            }}
-                            disabled={!isInteractive && !isManualHoverPreview}
-                            className="mines-tile"
-                            data-state={state}
-                            data-auto-selected={isAutoSelected ? "true" : "false"}
-                            data-auto-mode={showAutoSelectedTiles ? "true" : "false"}
-                            data-pending-reveal={isPendingReveal ? "true" : "false"}
-                            data-manual-chosen={isManualChosen ? "true" : "false"}
-                            aria-label={`Tile ${i + 1}`}
-                        >
-                            {state === "gem" && (
-                                <img
-                                    src="/mines/diamond.svg"
-                                    alt="Diamond"
-                                    className="mines-tile-icon mines-tile-gem"
-                                    draggable={false}
-                                />
-                            )}
-                            {state === "exploded" && (
-                                <ExplosionSprite
-                                    key={`${i}-explosion`}
-                                    src={EXPLOSION_SPRITE_SRC}
-                                    frameCount={EXPLOSION_FRAME_COUNT}
-                                    columns={EXPLOSION_COLUMNS}
-                                    fps={EXPLOSION_FPS}
-                                    className="mines-tile-icon mines-explosion-sprite"
-                                    showManualFireFrame={!showAutoSelectedTiles && !isAutoBetting}
-                                />
-                            )}
-                            {state === "mine-revealed" && (
-                                <img
-                                    src="/mines/bomb.svg"
-                                    alt="Bomb"
-                                    className="mines-tile-icon mines-tile-mine-icon"
-                                    draggable={false}
-                                />
-                            )}
-                        </button>
-                    );
-                })}
+            <div className="mines-grid-board">
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: `repeat(${BOARD_COLUMNS}, 1fr)`,
+                        gridTemplateRows: `repeat(${BOARD_COLUMNS}, minmax(0, 1fr))`,
+                        gap: "clamp(8px, 1.2vw, 12px)",
+                        width: "100%",
+                        height: "100%",
+                    }}
+                >
+                    {Array.from({ length: BOARD_TILE_COUNT }, (_, i) => {
+                        const state = getTileState(i, minePositions, revealedTiles, explodedMine, revealAllTiles);
+                        const isRevealClickable = isRoundActive && canReveal && state === "unrevealed" && !isAutoBetting;
+                        const isSelectClickable = isAutoSelectionMode && state === "unrevealed";
+                        const isManualHoverPreview = !isRoundActive && !isAutoSelectionMode && !isAutoBetting && state === "unrevealed";
+                        const isPendingReveal = pendingRevealTiles.includes(i) && state === "unrevealed";
+                        const isInteractive = (isRevealClickable && !isPendingReveal) || isSelectClickable;
+                        const isAutoSelected = showAutoSelectedTiles && autoSelectedTiles.includes(i);
+                        const isManualChosen = !isAutoBetting && !showAutoSelectedTiles && (revealedTiles.includes(i) || i === explodedMine);
+                        return (
+                            <button
+                                key={i}
+                                onPointerDown={(event) => {
+                                    if (!isInteractive) return;
+                                    event.preventDefault();
+                                    if (isSelectClickable) {
+                                        isDraggingRef.current = true;
+                                        dragActionRef.current = autoSelectedTiles.includes(i) ? "deselect" : "select";
+                                        draggedTilesRef.current = new Set([i]);
+                                    }
+                                    handleTileAction(i, isRevealClickable, isSelectClickable);
+                                }}
+                                onPointerEnter={() => {
+                                    if (!isDraggingRef.current || !isAutoSelectionMode || state !== "unrevealed") return;
+                                    if (draggedTilesRef.current.has(i)) return;
+                                    draggedTilesRef.current.add(i);
+                                    const wantSelect = dragActionRef.current === "select";
+                                    const alreadySelected = autoSelectedTiles.includes(i);
+                                    if (wantSelect && !alreadySelected) onToggleAutoTile(i);
+                                    if (!wantSelect && alreadySelected) onToggleAutoTile(i);
+                                }}
+                                onKeyDown={(event) => {
+                                    if (!isInteractive) return;
+                                    if (event.key !== "Enter" && event.key !== " ") return;
+                                    event.preventDefault();
+                                    handleTileAction(i, isRevealClickable, isSelectClickable);
+                                }}
+                                disabled={!isInteractive && !isManualHoverPreview}
+                                className="mines-tile"
+                                data-state={state}
+                                data-auto-selected={isAutoSelected ? "true" : "false"}
+                                data-auto-mode={showAutoSelectedTiles ? "true" : "false"}
+                                data-pending-reveal={isPendingReveal ? "true" : "false"}
+                                data-manual-chosen={isManualChosen ? "true" : "false"}
+                                aria-label={`Tile ${i + 1}`}
+                            >
+                                {state === "gem" && (
+                                    <img
+                                        src="/mines/diamond.svg"
+                                        alt="Diamond"
+                                        className="mines-tile-icon mines-tile-gem"
+                                        draggable={false}
+                                    />
+                                )}
+                                {state === "exploded" && (
+                                    <ExplosionSprite
+                                        key={`${i}-explosion`}
+                                        src={EXPLOSION_SPRITE_SRC}
+                                        frameCount={EXPLOSION_FRAME_COUNT}
+                                        columns={EXPLOSION_COLUMNS}
+                                        fps={EXPLOSION_FPS}
+                                        className="mines-tile-icon mines-explosion-sprite"
+                                        showManualFireFrame={!showAutoSelectedTiles && !isAutoBetting}
+                                    />
+                                )}
+                                {state === "mine-revealed" && (
+                                    <img
+                                        src="/mines/bomb.svg"
+                                        alt="Bomb"
+                                        className="mines-tile-icon mines-tile-mine-icon"
+                                        draggable={false}
+                                    />
+                                )}
+                            </button>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );
