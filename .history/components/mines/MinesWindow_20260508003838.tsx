@@ -43,37 +43,7 @@ interface ExplosionSpriteProps {
     showManualFireFrame: boolean;
 }
 
-const DIAMOND_SPIN_DURATION_MS = 380;
-
 type ExplosionPhase = "intro" | "playing" | "outro";
-
-const DiamondReveal: React.FC = () => {
-    const [showStaticDiamond, setShowStaticDiamond] = useState(false);
-
-    useEffect(() => {
-        const timeoutId = window.setTimeout(() => {
-            setShowStaticDiamond(true);
-        }, DIAMOND_SPIN_DURATION_MS);
-
-        return () => {
-            window.clearTimeout(timeoutId);
-        };
-    }, []);
-
-    return (
-        <>
-            {showStaticDiamond && (
-                <img
-                    src="/mines/diamond_2.png"
-                    alt="Diamond"
-                    className="mines-tile-icon mines-tile-gem"
-                    draggable={false}
-                />
-            )}
-            <div className="mines-diamond-sprite" aria-hidden="true" />
-        </>
-    );
-};
 
 const ExplosionSprite: React.FC<ExplosionSpriteProps> = ({
     src,
@@ -359,18 +329,12 @@ const MinesWindow: React.FC<MinesWindowProps> = ({
                             aria-label={`Tile ${i + 1}`}
                         >
                             {state === "gem" && (
-                                <>
-                                    {revealAllTiles ? (
-                                        <img
-                                            src="/mines/diamond_2.png"
-                                            alt="Diamond"
-                                            className="mines-tile-icon mines-tile-gem"
-                                            draggable={false}
-                                        />
-                                    ) : (
-                                        <DiamondReveal />
-                                    )}
-                                </>
+                                <img
+                                    src="/mines/diamond_2.png"
+                                    alt="Diamond"
+                                    className="mines-tile-icon mines-tile-gem"
+                                    draggable={false}
+                                />
                             )}
                             {state === "exploded" && (
                                 <ExplosionSprite

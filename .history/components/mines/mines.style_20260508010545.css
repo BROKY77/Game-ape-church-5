@@ -57,6 +57,7 @@
     background: #2b3339;
     box-shadow: none;
     cursor: default;
+    overflow: visible;
     animation: mines-tile-reveal 0.62s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
@@ -138,63 +139,27 @@
     filter: none;
 }
 
+.mines-diamond-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: #2b3339;
+    pointer-events: none;
+}
+
 .mines-diamond-sprite {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: clamp(43px, 6.5vw, 72px);
-    height: clamp(43px, 6.5vw, 72px);
+    width: 220%;
+    height: 220%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 3;
     pointer-events: none;
-    background-image: url("/mines/diamond_spritesheet.png");
+    background-image: url("/mines/diamond_animation_1.png");
     background-repeat: no-repeat;
-    background-size: 500% 500%;
+    background-size: 300% 300%;
     background-position: 0% 0%;
-    animation:
-        mines-diamond-sprite-anim 0.38s step-end forwards,
-        mines-diamond-sprite-bob 0.38s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-@keyframes mines-diamond-sprite-anim {
-    0%    { background-position: 0%   0%;   opacity: 1; }
-    4%    { background-position: 25%  0%;   opacity: 1; }
-    8%    { background-position: 50%  0%;   opacity: 1; }
-    12%   { background-position: 75%  0%;   opacity: 1; }
-    16%   { background-position: 100% 0%;   opacity: 1; }
-    20%   { background-position: 0%   25%;  opacity: 1; }
-    24%   { background-position: 25%  25%;  opacity: 1; }
-    28%   { background-position: 50%  25%;  opacity: 1; }
-    32%   { background-position: 75%  25%;  opacity: 1; }
-    36%   { background-position: 100% 25%;  opacity: 1; }
-    40%   { background-position: 0%   50%;  opacity: 1; }
-    44%   { background-position: 25%  50%;  opacity: 1; }
-    48%   { background-position: 50%  50%;  opacity: 1; }
-    52%   { background-position: 75%  50%;  opacity: 1; }
-    56%   { background-position: 100% 50%;  opacity: 1; }
-    60%   { background-position: 0%   75%;  opacity: 1; }
-    64%   { background-position: 25%  75%;  opacity: 1; }
-    68%   { background-position: 50%  75%;  opacity: 1; }
-    72%   { background-position: 75%  75%;  opacity: 1; }
-    76%   { background-position: 100% 75%;  opacity: 1; }
-    80%   { background-position: 0%   100%; opacity: 1; }
-    84%   { background-position: 25%  100%; opacity: 1; }
-    88%   { background-position: 50%  100%; opacity: 1; }
-    92%   { background-position: 75%  100%; opacity: 1; }
-    96%   { background-position: 100% 100%; opacity: 1; }
-    to    { background-position: 100% 100%; opacity: 0; }
-}
-
-@keyframes mines-diamond-sprite-bob {
-    0% {
-        transform: translate(-50%, -50%);
-    }
-    42% {
-        transform: translate(-50%, -68%);
-    }
-    100% {
-        transform: translate(-50%, -50%);
-    }
 }
 
 .mines-tile-exploded-icon {

@@ -142,8 +142,8 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: clamp(43px, 6.5vw, 72px);
-    height: clamp(43px, 6.5vw, 72px);
+    width: 74%;
+    height: 74%;
     transform: translate(-50%, -50%);
     z-index: 2;
     pointer-events: none;
@@ -151,9 +151,7 @@
     background-repeat: no-repeat;
     background-size: 500% 500%;
     background-position: 0% 0%;
-    animation:
-        mines-diamond-sprite-anim 0.38s step-end forwards,
-        mines-diamond-sprite-bob 0.38s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation: mines-diamond-sprite-anim 0.38s step-end forwards;
 }
 
 @keyframes mines-diamond-sprite-anim {
@@ -183,18 +181,6 @@
     92%   { background-position: 75%  100%; opacity: 1; }
     96%   { background-position: 100% 100%; opacity: 1; }
     to    { background-position: 100% 100%; opacity: 0; }
-}
-
-@keyframes mines-diamond-sprite-bob {
-    0% {
-        transform: translate(-50%, -50%);
-    }
-    42% {
-        transform: translate(-50%, -68%);
-    }
-    100% {
-        transform: translate(-50%, -50%);
-    }
 }
 
 .mines-tile-exploded-icon {

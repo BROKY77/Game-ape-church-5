@@ -33,6 +33,19 @@ const EXPLOSION_BOMB_POST_DELAY_MS = 120;
 const FIRE_FRAME_SPRITE_COUNT = 25;
 const FIRE_FRAME_SPRITE_COLUMNS = 5;
 const FIRE_FRAME_FPS = 20;
+const DIAMOND_FRAME_MS = 80;
+const DIAMOND_REVEAL_FRAME_INDEX = 4;
+const DIAMOND_FRAME_POSITIONS = [
+    "0% 0%",
+    "50% 0%",
+    "100% 0%",
+    "0% 50%",
+    "50% 50%",
+    "100% 50%",
+    "0% 100%",
+    "50% 100%",
+    "100% 100%",
+] as const;
 
 interface ExplosionSpriteProps {
     src: string;
@@ -43,34 +56,56 @@ interface ExplosionSpriteProps {
     showManualFireFrame: boolean;
 }
 
-const DIAMOND_SPIN_DURATION_MS = 380;
-
 type ExplosionPhase = "intro" | "playing" | "outro";
 
-const DiamondReveal: React.FC = () => {
-    const [showStaticDiamond, setShowStaticDiamond] = useState(false);
+const DiamondRevealSprite: React.FC = () => {
+    const [frame, setFrame] = useState(0);
+    const [isFinished, setIsFinished] = useState(false);
 
     useEffect(() => {
-        const timeoutId = window.setTimeout(() => {
-            setShowStaticDiamond(true);
-        }, DIAMOND_SPIN_DURATION_MS);
+        setFrame(0);
+        setIsFinished(false);
+
+        let nextFrame = 0;
+        let frameTimer: number | null = null;
+
+        const advanceFrame = () => {
+            frameTimer = window.setTimeout(() => {
+                nextFrame += 1;
+
+                if (nextFrame >= DIAMOND_FRAME_POSITIONS.length) {
+                    setIsFinished(true);
+                    return;
+                }
+
+                setFrame(nextFrame);
+                advanceFrame();
+            }, DIAMOND_FRAME_MS);
+        };
+
+        advanceFrame();
 
         return () => {
-            window.clearTimeout(timeoutId);
+            if (frameTimer !== null) {
+                window.clearTimeout(frameTimer);
+            }
         };
     }, []);
 
+    if (isFinished) {
+        return null;
+    }
+
     return (
         <>
-            {showStaticDiamond && (
-                <img
-                    src="/mines/diamond_2.png"
-                    alt="Diamond"
-                    className="mines-tile-icon mines-tile-gem"
-                    draggable={false}
-                />
+            {frame < DIAMOND_REVEAL_FRAME_INDEX && (
+                <div className="mines-diamond-cover" aria-hidden="true" />
             )}
-            <div className="mines-diamond-sprite" aria-hidden="true" />
+            <div
+                className="mines-diamond-sprite"
+                style={{ backgroundPosition: DIAMOND_FRAME_POSITIONS[frame] }}
+                aria-hidden="true"
+            />
         </>
     );
 };
@@ -360,16 +395,13 @@ const MinesWindow: React.FC<MinesWindowProps> = ({
                         >
                             {state === "gem" && (
                                 <>
-                                    {revealAllTiles ? (
-                                        <img
-                                            src="/mines/diamond_2.png"
-                                            alt="Diamond"
-                                            className="mines-tile-icon mines-tile-gem"
-                                            draggable={false}
-                                        />
-                                    ) : (
-                                        <DiamondReveal />
-                                    )}
+                                    <img
+                                        src="/mines/diamond_2.png"
+                                        alt="Diamond"
+                                        className="mines-tile-icon mines-tile-gem"
+                                        draggable={false}
+                                    />
+                                    {!revealAllTiles && <DiamondRevealSprite />}
                                 </>
                             )}
                             {state === "exploded" && (
